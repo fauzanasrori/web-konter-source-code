@@ -1,144 +1,146 @@
-import { Search, ShoppingCart, User, Bell, Heart } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ShoppingCart, User, Bell, Heart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ProductCard } from "@/components/product-card";
 import { CategoryNav } from "@/components/category-nav";
-import { MobileNav } from "@/components/mobile-nav";
-import { MobileMenuToggle } from "@/components/mobile-menu-toggle";
+import {
+  appStore,
+  voucherDigital,
+  voucherGame,
+  pulsa,
+  paketData,
+} from "@/constants";
+import { usePurchaseModalStore } from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  const { openModal } = usePurchaseModalStore();
+
+  const handleProductClick = (title: string, price: string) => {
+    openModal(title, price);
+  };
+
+  const handleWishlistClick = () => {
+    alert("Fitur wishlist akan segera hadir!");
+  };
+
+  const handleNotificationClick = () => {
+    alert("Fitur notifikasi akan segera hadir!");
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 bg-white border-b">
-        <div className="container mx-auto px-4 py-2">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 lg:hidden">
-              <MobileMenuToggle />
-            </div>
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-green-600">
+              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
                 VoucherKu
               </span>
             </Link>
-            <div className="hidden flex-1 lg:block max-w-xl mx-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Cari voucher, pulsa, atau paket data..."
-                  className="pl-10 pr-4 py-2 rounded-lg border-green-200 focus:border-green-500"
-                />
-              </div>
-            </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="hidden lg:flex">
+              <Button variant="ghost" size="icon" onClick={handleWishlistClick}>
                 <Heart className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleNotificationClick}
+              >
                 <Bell className="h-5 w-5" />
               </Button>
-              <Link href="/keranjang">
-                <Button variant="ghost" size="icon">
-                  <ShoppingCart className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="/akun">
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <div className="mt-2 lg:hidden">
-            <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Cari voucher, pulsa, atau paket data..."
-                className="pl-10 pr-4 py-2 rounded-lg border-green-200 focus:border-green-500"
-              />
             </div>
           </div>
         </div>
       </header>
 
-      <MobileNav />
-
       <main className="flex-1">
-        <section className="bg-gradient-to-r from-green-500 to-green-600 py-8 sm:py-20">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col items-center text-center text-white">
-              <h1 className="text-3xl font-bold mb-4">
-                Isi Pulsa & Beli Voucher Lebih Mudah
+        <section className="relative overflow-hidden bg-gradient-to-br from-green-600 to-green-800 py-16 sm:py-24">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-green-900/20"></div>
+          <div className="container relative mx-auto px-4">
+            <div className="flex flex-col items-center text-center text-white max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span className="text-sm font-medium">
+                  Pembayaran Instan & Aman
+                </span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+                Isi Pulsa & Beli Voucher
+                <br />
+                <span className="text-green-200">Lebih Mudah & Cepat</span>
               </h1>
-              <p className="text-lg mb-6">
+              <p className="text-lg sm:text-xl mb-8 text-green-100 max-w-2xl">
                 Dapatkan voucher game, pulsa, dan paket data dengan harga
-                terbaik
+                terbaik dan proses instan. Transaksi aman dengan garansi uang
+                kembali.
               </p>
-              <Button className="bg-white text-green-600 hover:bg-green-50">
-                Mulai Belanja
-              </Button>
+              <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 w-full max-w-2xl">
+                <div className="flex flex-col items-center">
+                  <div className="text-3xl font-bold text-green-200">10K+</div>
+                  <div className="text-sm text-green-100">Produk Tersedia</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="text-3xl font-bold text-green-200">99%</div>
+                  <div className="text-sm text-green-100">
+                    Kepuasan Pelanggan
+                  </div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="text-3xl font-bold text-green-200">24/7</div>
+                  <div className="text-sm text-green-100">Layanan Aktif</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="text-3xl font-bold text-green-200">1M+</div>
+                  <div className="text-sm text-green-100">Transaksi</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="py-6 bg-gray-50">
+        <section className="py-8 bg-gray-50">
           <div className="container mx-auto px-4">
             <CategoryNav />
           </div>
         </section>
 
-        <section className="py-8">
+        <section className="py-12">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold">Pulsa & Paket Data</h2>
               <Link href="/pulsa" className="text-green-600 hover:underline">
                 Lihat Semua
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <ProductCard
-                title="Pulsa Telkomsel"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp25.000"
-                category="Pulsa"
-                discount="2%"
-              />
-              <ProductCard
-                title="Pulsa XL"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp50.000"
-                category="Pulsa"
-                discount="3%"
-              />
-              <ProductCard
-                title="Pulsa Indosat"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp100.000"
-                category="Pulsa"
-                discount="5%"
-              />
-              <ProductCard
-                title="Paket Data Telkomsel 8GB"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp60.000"
-                category="Paket Data"
-                discount="10%"
-              />
-              <ProductCard
-                title="Paket Data XL 15GB"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp80.000"
-                category="Paket Data"
-                discount="8%"
-              />
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+              {[...pulsa, ...paketData].slice(0, 5).map((product) => (
+                <ProductCard
+                  key={product.title}
+                  title={product.title}
+                  image={product.image}
+                  price={product.price}
+                  category={product.category}
+                  discount={product.discount}
+                  className={product.className}
+                  onClick={() =>
+                    handleProductClick(product.title, product.price)
+                  }
+                />
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="py-8 bg-white">
+        <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Voucher Game Populer</h2>
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold">Voucher Game</h2>
               <Link
                 href="/voucher-game"
                 className="text-green-600 hover:underline"
@@ -146,49 +148,27 @@ export default function Home() {
                 Lihat Semua
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <ProductCard
-                title="Mobile Legends 86 Diamonds"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp22.000"
-                category="Game"
-                discount="5%"
-              />
-              <ProductCard
-                title="Free Fire 100 Diamonds"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp15.000"
-                category="Game"
-              />
-              <ProductCard
-                title="PUBG Mobile 150 UC"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp30.000"
-                category="Game"
-                discount="3%"
-              />
-              <ProductCard
-                title="Genshin Impact 300 Genesis"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp79.000"
-                category="Game"
-                discount="7%"
-              />
-              <ProductCard
-                title="Valorant 1000 Points"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp120.000"
-                category="Game"
-                discount="4%"
-              />
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+              {voucherGame.slice(0, 5).map((game) => (
+                <ProductCard
+                  key={game.title}
+                  title={game.title}
+                  image={game.image}
+                  price={game.price}
+                  category={game.category}
+                  discount={game.discount}
+                  className="object-cover hover:shadow-lg transition-shadow"
+                  onClick={() => handleProductClick(game.title, game.price)}
+                />
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="py-8 bg-gray-50">
+        <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Voucher Digital</h2>
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold">Streaming</h2>
               <Link
                 href="/voucher-digital"
                 className="text-green-600 hover:underline"
@@ -196,52 +176,44 @@ export default function Home() {
                 Lihat Semua
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <ProductCard
-                title="Netflix 1 Bulan"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp159.000"
-                category="Streaming"
-                discount="10%"
-              />
-              <ProductCard
-                title="Spotify Premium 1 Bulan"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp54.000"
-                category="Streaming"
-                discount="5%"
-              />
-              <ProductCard
-                title="Disney+ Hotstar 1 Bulan"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp39.000"
-                category="Streaming"
-              />
-              <ProductCard
-                title="Google Play Rp100.000"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp102.000"
-                category="App Store"
-                discount="2%"
-              />
-              <ProductCard
-                title="App Store Rp150.000"
-                image="/placeholder.svg?height=200&width=200"
-                price="Rp153.000"
-                category="App Store"
-                discount="1%"
-              />
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+              {voucherDigital.slice(0, 3).map((digital) => (
+                <ProductCard
+                  key={digital.title}
+                  title={digital.title}
+                  image={digital.image}
+                  price={digital.price}
+                  category={digital.category}
+                  discount={digital.discount}
+                  className="object-cover hover:shadow-lg transition-shadow"
+                  onClick={() =>
+                    handleProductClick(digital.title, digital.price)
+                  }
+                />
+              ))}
+              {appStore.slice(0, 2).map((store) => (
+                <ProductCard
+                  key={store.title}
+                  title={store.title}
+                  image={store.image}
+                  price={store.price}
+                  category={store.category}
+                  discount={store.discount}
+                  className="object-cover hover:shadow-lg transition-shadow"
+                  onClick={() => handleProductClick(store.title, store.price)}
+                />
+              ))}
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-green-800 text-white py-10">
+      <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">VoucherKu</h3>
-              <p className="text-green-100">
+              <p className="text-gray-400">
                 Tempat terbaik untuk membeli voucher, pulsa, dan paket data
                 dengan harga terjangkau.
               </p>
@@ -252,7 +224,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="/pulsa"
-                    className="text-green-100 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors"
                   >
                     Pulsa
                   </Link>
@@ -260,7 +232,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="/paket-data"
-                    className="text-green-100 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors"
                   >
                     Paket Data
                   </Link>
@@ -268,7 +240,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="/voucher-game"
-                    className="text-green-100 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors"
                   >
                     Voucher Game
                   </Link>
@@ -276,43 +248,9 @@ export default function Home() {
                 <li>
                   <Link
                     href="/voucher-digital"
-                    className="text-green-100 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors"
                   >
-                    Voucher Digital
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Bantuan</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    href="/cara-pembayaran"
-                    className="text-green-100 hover:text-white"
-                  >
-                    Cara Pembayaran
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/hubungi-kami"
-                    className="text-green-100 hover:text-white"
-                  >
-                    Hubungi Kami
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="text-green-100 hover:text-white">
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/syarat-ketentuan"
-                    className="text-green-100 hover:text-white"
-                  >
-                    Syarat & Ketentuan
+                    Streaming
                   </Link>
                 </li>
               </ul>
@@ -320,7 +258,10 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">Ikuti Kami</h4>
               <div className="flex space-x-4">
-                <Link href="#" className="text-green-100 hover:text-white">
+                <Link
+                  href="#"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   <span className="sr-only">Facebook</span>
                   <svg
                     className="h-6 w-6"
@@ -335,7 +276,10 @@ export default function Home() {
                     />
                   </svg>
                 </Link>
-                <Link href="#" className="text-green-100 hover:text-white">
+                <Link
+                  href="#"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   <span className="sr-only">Instagram</span>
                   <svg
                     className="h-6 w-6"
@@ -350,7 +294,10 @@ export default function Home() {
                     />
                   </svg>
                 </Link>
-                <Link href="#" className="text-green-100 hover:text-white">
+                <Link
+                  href="#"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   <span className="sr-only">Twitter</span>
                   <svg
                     className="h-6 w-6"
@@ -364,7 +311,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-green-700 text-center text-green-100">
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
             <p>© 2025 VoucherKu. Hak Cipta Dilindungi.</p>
           </div>
         </div>

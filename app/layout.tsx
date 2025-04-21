@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { MobileNav } from "@/components/mobile-nav";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Voucher",
-  description: "Penjualan voucher data dengan mudah",
-  generator: "v0.dev",
+  title: "VoucherKu",
+  description: "Tempat terbaik untuk membeli voucher, pulsa, dan paket data",
 };
 
 export default function RootLayout({
@@ -14,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={inter.className}>
+        <div className="pb-14 md:pb-0">{children}</div>
+        <MobileNav />
+      </body>
     </html>
   );
 }

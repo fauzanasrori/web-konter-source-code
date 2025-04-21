@@ -1,8 +1,9 @@
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ProductCard } from "@/components/product-card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/product-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { appStore, voucherDigital } from "@/constants";
 
 export default function VoucherDigitalPage() {
   return (
@@ -26,94 +27,32 @@ export default function VoucherDigitalPage() {
 
         <TabsContent value="streaming">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <ProductCard
-              title="Netflix 1 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp159.000"
-              category="Streaming"
-              discount="10%"
-            />
-            <ProductCard
-              title="Spotify Premium 1 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp54.000"
-              category="Streaming"
-              discount="5%"
-            />
-            <ProductCard
-              title="Disney+ Hotstar 1 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp39.000"
-              category="Streaming"
-            />
-            <ProductCard
-              title="YouTube Premium 1 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp59.000"
-              category="Streaming"
-              discount="8%"
-            />
-            <ProductCard
-              title="Vidio Premier 1 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp29.000"
-              category="Streaming"
-              discount="5%"
-            />
-            <ProductCard
-              title="Netflix 3 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp459.000"
-              category="Streaming"
-              discount="12%"
-            />
-            <ProductCard
-              title="Spotify Premium 3 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp159.000"
-              category="Streaming"
-              discount="7%"
-            />
-            <ProductCard
-              title="Disney+ Hotstar 3 Bulan"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp109.000"
-              category="Streaming"
-              discount="5%"
-            />
+            {voucherDigital.map((digital) => (
+              <ProductCard
+                key={digital.title}
+                title={digital.title}
+                image={digital.image}
+                price={digital.price}
+                category={digital.category}
+                discount={digital.discount}
+                className="object-cover"
+              />
+            ))}
           </div>
         </TabsContent>
 
         <TabsContent value="app-store">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <ProductCard
-              title="Google Play Rp100.000"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp102.000"
-              category="App Store"
-              discount="2%"
-            />
-            <ProductCard
-              title="App Store Rp150.000"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp153.000"
-              category="App Store"
-              discount="1%"
-            />
-            <ProductCard
-              title="Google Play Rp300.000"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp306.000"
-              category="App Store"
-              discount="2%"
-            />
-            <ProductCard
-              title="App Store Rp500.000"
-              image="/placeholder.svg?height=200&width=200"
-              price="Rp510.000"
-              category="App Store"
-              discount="1%"
-            />
+            {appStore.map((store) => (
+              <ProductCard
+                key={store.title}
+                title={store.title}
+                image={store.image}
+                price={store.price}
+                category={store.category}
+                discount={store.discount}
+              />
+            ))}
           </div>
         </TabsContent>
 
@@ -170,6 +109,5 @@ export default function VoucherDigitalPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-

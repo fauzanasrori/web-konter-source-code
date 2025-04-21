@@ -1,9 +1,10 @@
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ProductCard } from "@/components/product-card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ProductCard } from "@/components/product-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { paketData } from "@/constants";
 
 export default function PaketDataPage() {
   return (
@@ -21,7 +22,9 @@ export default function PaketDataPage() {
         <h2 className="text-lg font-medium mb-4">Beli Paket Data</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Nomor Telepon</label>
+            <label className="block text-sm font-medium mb-1">
+              Nomor Telepon
+            </label>
             <Input placeholder="Contoh: 08123456789" />
           </div>
 
@@ -120,49 +123,26 @@ export default function PaketDataPage() {
             </TabsContent>
           </Tabs>
 
-          <Button className="w-full bg-green-600 hover:bg-green-700">Beli Sekarang</Button>
+          <Button className="w-full bg-green-600 hover:bg-green-700">
+            Beli Sekarang
+          </Button>
         </div>
       </div>
 
       <h2 className="text-xl font-bold mb-4">Paket Data Populer</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <ProductCard
-          title="Paket Data Telkomsel 8GB"
-          image="/placeholder.svg?height=200&width=200"
-          price="Rp60.000"
-          category="Paket Data"
-          discount="10%"
-        />
-        <ProductCard
-          title="Paket Data XL 15GB"
-          image="/placeholder.svg?height=200&width=200"
-          price="Rp80.000"
-          category="Paket Data"
-          discount="8%"
-        />
-        <ProductCard
-          title="Paket Data Indosat 10GB"
-          image="/placeholder.svg?height=200&width=200"
-          price="Rp75.000"
-          category="Paket Data"
-          discount="5%"
-        />
-        <ProductCard
-          title="Paket Data Tri 20GB"
-          image="/placeholder.svg?height=200&width=200"
-          price="Rp70.000"
-          category="Paket Data"
-          discount="12%"
-        />
-        <ProductCard
-          title="Paket Data Smartfren 30GB"
-          image="/placeholder.svg?height=200&width=200"
-          price="Rp85.000"
-          category="Paket Data"
-          discount="15%"
-        />
+        {paketData.map((data) => (
+          <ProductCard
+            key={data.title}
+            title={data.title}
+            image={data.image}
+            price={data.price}
+            category={data.category}
+            discount={data.discount}
+            className={`${data.className} object-contain`}
+          />
+        ))}
       </div>
     </div>
-  )
+  );
 }
-
