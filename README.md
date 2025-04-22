@@ -37,9 +37,7 @@ Buka [http://localhost:3000](http://localhost:3000) di browser kamu untuk meliha
 ## ⚙️ Alur Yang Diperlukan Device Untuk Menjalankan
 
 1. **Punya Node.js** (versi rekomendasi: LTS)
-2. **Install pnpm** (`npm install -g pnpm` kalau belum ada)
+2. **Install pnpm** (`npm install -g pnpm` kalau belum ada) -- default e durung ke install
 3. **Clone repo** atau copy source code
 4. **Install dependencies** dengan `pnpm install`
-5. **Jalankan server** dengan `pnpm dev`
-6. **(Opsional)** Setup file `.env` jika ada environment variable yang dibutuhkan
-7. **(Opsional)** Build untuk produksi: `pnpm build && pnpm start`
+5. **Jalankan server** dengan `pnpm run dev`
